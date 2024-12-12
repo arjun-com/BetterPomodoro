@@ -1,0 +1,12 @@
+:root {
+  --bgColor1: #0f2027;
+  --bgColor2: #203a43;
+  --bgColor3: #2c5364;
+  --text-color: #ffffff;
+  --clock-color: #ffffff;
+}
+
+#root {
+  width: 100%;
+  height: 100%;
+} 
