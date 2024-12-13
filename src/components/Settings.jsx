@@ -1,5 +1,5 @@
 import { useState, useRef, useEffect } from 'react'
-import { XMarkIcon, ClockIcon, CodeBracketIcon, PaintBrushIcon } from '@heroicons/react/24/outline'
+import { XMarkIcon, ClockIcon, CodeBracketIcon, PaintBrushIcon, EyeIcon, ArrowsPointingOutIcon, ArrowsPointingInIcon } from '@heroicons/react/24/outline'
 import { useColors } from '../contexts/ColorContext';
 import { HexColorPicker } from 'react-colorful';
 
@@ -213,6 +213,7 @@ function Settings({ isOpen, onClose, onSave }) {
   const tabs = [
     { id: 'timer', name: 'Timer', icon: ClockIcon },
     { id: 'appearance', name: 'Appearance', icon: PaintBrushIcon },
+    { id: 'zen', name: 'Zen Mode', icon: EyeIcon },
     { id: 'github', name: 'GitHub', icon: CodeBracketIcon },
   ]
 
@@ -300,6 +301,40 @@ function Settings({ isOpen, onClose, onSave }) {
                 onChange={(color) => handleColorChange('textColor', color)}
               />
             </div>
+          </div>
+        );
+
+      case 'zen':
+        return (
+          <div className="space-y-4 max-h-[60vh] overflow-y-auto px-2">
+            <p className="text-slate-700 dark:text-amber-100">
+              Zen Mode provides a distraction-free environment by hiding all UI elements except the timer.
+            </p>
+            <div className="flex items-center gap-4">
+              <button
+                onClick={() => document.documentElement.requestFullscreen()}
+                className="px-4 py-2 bg-amber-100/80 dark:bg-slate-700/80 
+                         rounded-lg text-slate-700 dark:text-amber-100 
+                         hover:bg-amber-200/80 dark:hover:bg-slate-600/80 
+                         transition-colors flex items-center gap-2"
+              >
+                <ArrowsPointingOutIcon className="w-5 h-5" />
+                Enter Zen Mode
+              </button>
+              <button
+                onClick={() => document.exitFullscreen()}
+                className="px-4 py-2 bg-amber-100/80 dark:bg-slate-700/80 
+                         rounded-lg text-slate-700 dark:text-amber-100 
+                         hover:bg-amber-200/80 dark:hover:bg-slate-600/80 
+                         transition-colors flex items-center gap-2"
+              >
+                <ArrowsPointingInIcon className="w-5 h-5" />
+                Exit Zen Mode
+              </button>
+            </div>
+            <p className="text-sm text-slate-600 dark:text-amber-100/70">
+              Tip: Press ESC to exit Zen Mode at any time
+            </p>
           </div>
         );
 
