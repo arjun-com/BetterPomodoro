@@ -1,5 +1,5 @@
 import { useState, useEffect } from 'react'
-import { XMarkIcon, ChartBarIcon, Cog6ToothIcon, PlayIcon } from '@heroicons/react/24/outline'
+import { XMarkIcon, ChartBarIcon, Cog6ToothIcon, PlayIcon, EyeIcon } from '@heroicons/react/24/outline'
 
 function WelcomePopup() {
   const [isOpen, setIsOpen] = useState(false)
@@ -30,6 +30,11 @@ function WelcomePopup() {
       icon: <Cog6ToothIcon className="w-5 h-5" />,
       title: "Customization",
       description: "Personalize colors and timer durations to match your preferences"
+    },
+    {
+      icon: <EyeIcon className="w-5 h-5" />,
+      title: "Zen Mode",
+      description: "Enter fullscreen for a distraction-free focus environment"
     }
   ]
 
