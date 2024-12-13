@@ -170,6 +170,7 @@ function Settings({ isOpen, onClose, onSave }) {
   const [studyTime, setStudyTime] = useState(25)
   const [shortBreak, setShortBreak] = useState(5)
   const [longBreak, setLongBreak] = useState(15)
+  const [isFullscreen, setIsFullscreen] = useState(false);
 
   // Load settings when modal opens
   useEffect(() => {
@@ -188,6 +189,34 @@ function Settings({ isOpen, onClose, onSave }) {
       }
     }
   }, [isOpen])
+
+  // Track fullscreen state
+  useEffect(() => {
+    const handleFullscreenChange = () => {
+      setIsFullscreen(!!document.fullscreenElement);
+    };
+
+    document.addEventListener('fullscreenchange', handleFullscreenChange);
+    return () => document.removeEventListener('fullscreenchange', handleFullscreenChange);
+  }, []);
+
+  const enterZenMode = async () => {
+    try {
+      await document.documentElement.requestFullscreen();
+    } catch (err) {
+      console.error('Error attempting to enable fullscreen:', err);
+    }
+  };
+
+  const exitZenMode = async () => {
+    try {
+      if (document.fullscreenElement) {
+        await document.exitFullscreen();
+      }
+    } catch (err) {
+      console.error('Error attempting to exit fullscreen:', err);
+    }
+  };
 
   const handleSave = () => {
     const settings = {
@@ -311,30 +340,30 @@ function Settings({ isOpen, onClose, onSave }) {
               Zen Mode provides a distraction-free environment by hiding all UI elements except the timer.
             </p>
             <div className="flex items-center gap-4">
-              <button
-                onClick={() => document.documentElement.requestFullscreen()}
-                className="px-4 py-2 bg-amber-100/80 dark:bg-slate-700/80 
-                         rounded-lg text-slate-700 dark:text-amber-100 
-                         hover:bg-amber-200/80 dark:hover:bg-slate-600/80 
-                         transition-colors flex items-center gap-2"
-              >
-                <ArrowsPointingOutIcon className="w-5 h-5" />
-                Enter Zen Mode
-              </button>
-              <button
-                onClick={() => document.exitFullscreen()}
-                className="px-4 py-2 bg-amber-100/80 dark:bg-slate-700/80 
-                         rounded-lg text-slate-700 dark:text-amber-100 
-                         hover:bg-amber-200/80 dark:hover:bg-slate-600/80 
-                         transition-colors flex items-center gap-2"
-              >
-                <ArrowsPointingInIcon className="w-5 h-5" />
-                Exit Zen Mode
-              </button>
+              {!isFullscreen ? (
+                <button
+                  onClick={enterZenMode}
+                  className="px-4 py-2 bg-amber-100/80 dark:bg-slate-700/80 
+                           rounded-lg text-slate-700 dark:text-amber-100 
+                           hover:bg-amber-200/80 dark:hover:bg-slate-600/80 
+                           transition-colors flex items-center gap-2"
+                >
+                  <ArrowsPointingOutIcon className="w-5 h-5" />
+                  Enter Zen Mode
+                </button>
+              ) : (
+                <button
+                  onClick={exitZenMode}
+                  className="px-4 py-2 bg-amber-100/80 dark:bg-slate-700/80 
+                           rounded-lg text-slate-700 dark:text-amber-100 
+                           hover:bg-amber-200/80 dark:hover:bg-slate-600/80 
+                           transition-colors flex items-center gap-2"
+                >
+                  <ArrowsPointingInIcon className="w-5 h-5" />
+                  Exit Zen Mode
+                </button>
+              )}
             </div>
-            <p className="text-sm text-slate-600 dark:text-amber-100/70">
-              Tip: Press ESC to exit Zen Mode at any time
-            </p>
           </div>
         );
 
