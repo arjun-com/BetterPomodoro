@@ -3,7 +3,7 @@
   "private": true,
   "version": "0.0.0",
   "type": "module",
-  "homepage": "https://arjun-com.github.io/betterpomodoro",
+  "homepage": "https://arjun-com.github.io/BetterPomodoro",
   "scripts": {
     "dev": "vite",
     "build": "vite build",
