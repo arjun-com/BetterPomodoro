@@ -1,6 +1,7 @@
 import './App.css'
 import Clock from './components/Clock'
 import Sidebar from './components/Sidebar'
+import WelcomePopup from './components/WelcomePopup'
 import { ColorProvider } from './contexts/ColorContext'
 
 function App() {
@@ -11,6 +12,7 @@ function App() {
 			}}>
 				<Sidebar />
 				<Clock visibility={{ phaseText: true, timer: true, controls: true }} />
+				<WelcomePopup />
 			</div>
 		</ColorProvider>
 	)
